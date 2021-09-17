@@ -12,6 +12,7 @@
 -  Запросы SQL [Superstore](./2_3_3_superstore.sql)
 ## 3. Модель данных в SQLdbm для создания новой БД
 
-- Концептуальная ![модель](./2_4_1_conceptual_dbm.png)
+- Концептуальная 
+![модель](./2_4_1_conceptual_dbm.png)
 - Логическая ![модель](./2_4_1_logical_dbm.png)
 - Физическая ![модель](./2_4_1_physical_dbm.png)
