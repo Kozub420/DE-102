@@ -16,3 +16,7 @@
 - Физическая ![модель](./2_4_1_physical_dbm.png)
 ## 4. Подключение к AWS
 Создан аккаунт AWS, созданы базы данных в LightSail и RDS.
+## 5. Визуализация
+
+![image](https://user-images.githubusercontent.com/90471699/134238751-8aa30360-ce7b-43b8-acfc-5d9a9d8b90b7.png)
+[Дашборд в Google Data Studio]( https://datastudio.google.com/s/lmeFIPry_20)
