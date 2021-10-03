@@ -9,5 +9,7 @@
 ### 3.12 Созданы подписки вакинсий на Indeed. 
 
 ### Финальный проект. Создан дашборд по данным Airbnb.
+![image](https://github.com/aldinus/DE-101/blob/main/Module3/Tableau_Dashboard.png)
+[Dashboard at Tableau Public](https://public.tableau.com/views/airbnb_16332740965890/Dashboard)
 
 
