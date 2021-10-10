@@ -1,11 +1,11 @@
-# Проекты модуля 4
+# РџСЂРѕРµРєС‚С‹ РјРѕРґСѓР»СЏ 4
 
-## 4.3. Установка Pentaho.
-Установлен Pentaho, Java, выполнен запуск spoon.bat.
-## 4.4. Подключение к БД Postgres Superstore. 
-## 4.5. Подсистемы ETL в Pentaho.
-Обзор подсистем подготовлен в [файле](./ETL sub.txt) 
-## 4.6. Знакомство с Tableau Prep, Alteryx.
-Установлен Tableau Prep получена лицензия. 
-Выполнен [Tableau Prep Flow Superstore](./tableau_prep_flow_superstore_postgres.tfl)
+## 4.3. РЈСЃС‚Р°РЅРѕРІРєР° Pentaho.
+РЈСЃС‚Р°РЅРѕРІР»РµРЅ Pentaho, Java, РІС‹РїРѕР»РЅРµРЅ Р·Р°РїСѓСЃРє spoon.bat.
+## 4.4. РџРѕРґРєР»СЋС‡РµРЅРёРµ Рє Р‘Р” Postgres Superstore. 
+## 4.5. РџРѕРґСЃРёСЃС‚РµРјС‹ ETL РІ Pentaho.
+РћР±Р·РѕСЂ РїРѕРґСЃРёСЃС‚РµРј РїРѕРґРіРѕС‚РѕРІР»РµРЅ РІ [С„Р°Р№Р»Рµ](./ETL_sub.txt) 
+## 4.6. Р—РЅР°РєРѕРјСЃС‚РІРѕ СЃ Tableau Prep, Alteryx.
+РЈСЃС‚Р°РЅРѕРІР»РµРЅ Tableau Prep РїРѕР»СѓС‡РµРЅР° Р»РёС†РµРЅР·РёСЏ. 
+Р’С‹РїРѕР»РЅРµРЅ [Tableau Prep Flow Superstore](./tableau_prep_flow_superstore_postgres.tfl)
 
