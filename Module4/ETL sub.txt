@@ -1,0 +1,242 @@
+Subsystem 3: Extraction System—Data Extraction
+
+The  extraction steps are actually called **input** steps.
+“Text file input” step,
+which we think is the more powerful and preferred solution for handling text data. This
+step is capable of a lot more than the previously mentioned input steps, including:
+■■ Reading file names from a previous step.
+■■ Reading multiple files in a single run.
+■■ Reading files from compressed .zip or .gzip archives.
+■■ Showing the content of the data file without specifying the structure. Note that
+you must specify the Format (DOS, Unix, Mixed) before you can view a file
+because Kettle needs to know what line delimiter is used.
+■■ Specifying an escape character. This can be used to read fields containing commas
+in a comma-separated file. A common escape character is a backslash, enabling
+the value “wait\, then continue” to be read correctly as “wait, then continue”
+without reading the comma as a field separator.
+■■ Error handling.
+■■ Filtering.
+■■ Date format locale specification.
+
+Subsystem 1: Data Profiling System—Data Profiling
+Currently, the community edition of the Pentaho BI suite does not contain data profiling
+capabilities, so we will use a tool named DataCleaner developed by the open source
+community eobjects.org. (Kettle 4.1 will contain a Data Profile feature as one of the
+Database Explorer functions.)
+
+subsystem 2.
+CDC: Change Data Capture
+CDC transformation itself. Create two “Table input”
+steps, one for sakila and one for sakila_dwh. Select all fields and make sure
+to sort the data on the key field(s) in ascending order because the Merge Rows
+step requires sorted input. After the two input steps are created, add a “Merge
+rows (diff)” step and connect both inputs to this step. Open the Merge step and
+select the reference and comparison origins, the name for the flag field (that will
+contain the values unchanged, changed, new, and deleted) and the comparison
+and match keys.
+
+Subsystem 4: Data-Cleansing
+Data-Cleansing Steps
+There is not a single Data Cleanse step, but rather, there are many steps and other places
+within a Kettle transformation where data can be cleansed. The data cleansing process
+starts when extracting data: Many of the input steps contain basic facilities to read the
+data in a specified format, especially when working with dates and numbers.
+The steps in the Transform folder offer many different options for cleansing data. A
+powerful step and feature-rich example is the **Calculator** step,
+Another step in the list that deserves a special mention is the “Replace in string” step.
+This seems like a very simple step to replace parts of a string with some other value, but
+the option to use regular expressions here makes it an extremely powerful solution for
+many cases. The standard Kettle examples contain a Replace in string transformation
+that illustrates all the available options in this step. Other useful Transform steps are the
+ones for splitting fields or fields to rows based on a separator value, a “String cut (substring)”
+step, and the Value Mapper step. This last one is a simple step to replace certain
+values of the input data with other, conformed values. For instance, the load_dim_staff
+transformation in Chapter 4 uses a Value Mapper step to replace the source values Y and
+N with Yes and No respectively.
+Data Validation
+
+Data Validator
+
+Subsystem 5: Error Event Schema
+The error event handler is also covered in Chapter 7.
+
+Subsystem 6: Audit Dimension Assembler
+Details of the audit
+dimension are also covered in Chapter 7.
+
+Subsystem 7: Deduplication
+Chapter 7 includes some pointers on how to handle deduplication from within Kettle,
+and of course you can always revert to a solution like DQ Guru by SQLPower, a specialized
+and powerful tool that can help you deduplicate reference data. DQ Guru is open
+source; you can find more info at http://www.sqlpower.ca/page/dqguru.
+
+subsystem 9 (Slowly Changing
+Dimension Processor), which is further explained in Chapter 5. Kettle offers a specialized
+“Dimension lookup / update” step, which makes maintaining a type 2 slowly
+changing dimension a relatively easy task. The exact usage of this particular step is
+beyond the scope of this chapter, but will be fully explained in Chapter 8.
+
+
+Subsystem 8: Data Conformer
+A common approach to this problem is to keep all the natural keys from the
+different source systems so that during fact loads, lookups can be performed against
+the correct key column in the dimension table. Chapter 9 covers these fact loads and
+lookup functions in Kettle in more detail.
+
+Data Delivery
+Delivery of new data includes a lot more than just appending new records to a target
+database. First, there are many ways to update dimension tables, as reflected in the
+different slowly changing dimensions techniques.Loading facts
+can also be challenging because of the large data volumes, a requirement to update fact
+records, or both.
+
+Subsystem 9: Slowly Changing Dimension Processor
+Chapter 8 covers the first three SCD types and explains how Kettle can be used to
+support those different approaches.
+
+
+Subsystem 10: Surrogate Key Creation System
+The ETL system needs to be able to generate surrogate keys. Within Kettle this is relatively
+easy because it contains a special Add Sequence step that can generate artificial
+keys within Kettle or call a database sequence generator. This is great for an initial load
+or when creating a time dimension, but not for updating dimension tables. That’s where
+the “Dimension lookup / update” and “Combination lookup / update” steps come in.
+Both these steps have three ways of generating a new surrogate key value:
+■■ Use table (actually: column) maximum + 1.
+■■ Use a database sequence.
+■■ Use an auto increment field.
+The latter is also supported by the Table Output step.
+
+Subsystem 11: Hierarchy Dimension Builder
+Both
+unbalanced and ragged hierarchies are often implemented as a recursive relation in a
+source system. Kettle offers some (but not all!) capabilities to flatten these hierarchies,
+as you will see in Chapter 8.
+
+Subsystem 12: Special Dimension Builder
+Most of the dimension-loading techniques are covered in Chapter 8. User-maintained
+dimensions are a bit different; they also require an application to maintain the user
+data, a topic that is beyond the scope of this book. We do have a tip, however: Take a
+look at Wavemaker, an open source rapid application development tool that lets you
+build a maintenance screen in minutes. You can find more information at http://
+dev.wavemaker.com/.
+
+Subsystem 13: Fact Table Loader
+Chapter 9 covers the different fact table load techniques in depth
+
+Subsystem 14: Surrogate Key Pipeline
+To make this process as efficient as possible,
+the current distinct set of natural and surrogate keys from the dimension table can be
+preloaded into memory. Chapter 9 explains how this is achieved in Kettle using the
+“Database lookup” and “Stream lookup” steps.
+
+
+Subsystem 15: Multi-Valued Dimension Bridge Table Builder
+Bridge tables are needed to allow for variable depth hierarchies
+Kettle doesn’t provide specific functionality
+for building and maintaining bridge tables, but in Chapter 4 we showed a small example
+in the Sakila transformations.
+
+
+Subsystem 16: Late-Arriving Data Handler
+Late-arriving dimension
+data is covered in Chapter 8, late-arriving facts in Chapter 9.
+
+Subsystem 17: Dimension Manager System
+In Chapter 8, we cover how to best organize
+the management of dimension tables using Kettle.
+
+Subsystem 18: Fact Table Provider System
+Note that subsystem
+17 and 18 work together as a pair: the fact table provider subscribes to the
+dimensions managed by the dimension manager and attaches them to their fact tables.
+Chapter 9 provides more detail about this subsystem.
+
+Subsystem 19: Aggregate Builder
+the Pentaho Aggregation Designer. Generation and population of aggregation
+tables are one-time–only activities, however; neither LucidDB nor PAD maintains the
+aggregates after the data warehouse is refreshed. In Chapter 9, we discuss how you can
+use Kettle to do this for you.
+
+
+Subsystem 20: Multidimensional (OLAP) Cube Builder
+Chapter 10 is entirely devoted to handling OLAP data and shows how the Palo plugin
+can be used to populate a Palo cube.
+
+
+Subsystem 21: Data Integration Manager
+This subsystem is used to get data out of the data warehouse and send it to other environments,
+usually for offline data analysis or other special purposes such as sending
+an order overview to a specific customer. In Chapter 22, we show you how Kettle can
+be used to make this data available on a regular basis.
+
+Subsystem 22: Job Scheduler—
+The Community Edition of Kettle doesn’t have its
+own scheduler but relies on external schedulers such as the Pentaho BI Scheduler or
+cron. Chapter 12 contains everything related to scheduling and logging of jobs.
+
+Subsystem 23: Backup System—
+Backing up the data warehouse itself is usually not the responsibility
+of the ETL team but you should work closely together with the DBAs to create
+a failure-proof solution.
+
+Subsystem 24: Recovery and Restart System—
+Chapter 11 covers this aspect of the ETL design
+as part of the broader testing and debugging topic.
+
+
+Subsystem 25: Version Control System, and Subsystem 26: Version Migration
+System from development to test to production—
+Chapter 13 covers these topics in depth. Kettle has
+built-in versioning capabilities, but only in the Enterprise Edition. This doesn’t
+mean that you can’t use a separate version control system such as SVN or CVS. It
+also doesn’t mean that version management should be considered an afterthought;
+we’d like to repeat the note written by Ralph Kimball on this subject.
+
+
+Subsystem 27: Workflow Monitor—
+All these questions are answered by the workflow monitor, or, in Kettle
+terminology, the logging architecture. You can learn more about logging and the
+Kettle logging architecture in Chapters 12 and 14.
+
+Subsystem 28: Sort System—
+For some operations (such as the Kettle “Group
+by” and Sorted Merge steps), the data needs to be sorted first. Of course Kettle
+has a “Sort rows” step for this that operates in memory and pages to disk if the
+Chapter 5 n ETL Subsystems 125
+dataset becomes too large, but for extremely large files a separate sort tool might
+be necessary. We don’t cover these specialized tools but simply rely on the “Sort
+rows” step to do our sorting.
+
+Subsystem 29: Lineage and  Dependency Analyzer—
+Kettle has some capabilities
+to show the impact of a transformation step on a database, but full lineage
+and dependency analysis is still planned for a future version of Kettle Enterprise
+Edition. Chapter 14 covers what can be done using the current version by reading
+the Kettle metadata.
+
+Subsystem 30: Problem Escalation System—In case something goes wrong (and
+believe us, it will!), you need to be notified as soon as possible. Chapter 7 covers
+error handling and notification.
+
+Subsystem 31: Parallelizing/Pipelining System—
+Chapters 15 and 16 cover
+these topics. Kettle’s easy-to-use clustering capabilities are especially worth mentioning;
+this enables an organization to dynamically add capacity
+
+Subsystem 32: Security System
+Security and compliance are hot topics in modern
+IT environments.
+
+Subsystem 33: Compliance Reporter—
+what the value was
+at each particular point in time (audit table; SCD type 2), and who had access to
+the data (logging). A good data modeling technique that has compliance written
+all over it is the Data Vault, covered in Chapter 19.
+
+Subsystem 34: Metadata Repository Manager—
+
+An important part of this metadata is to document the system, which is
+covered in Chapter 11, and of course the entire Kettle architecture is metadatadriven,
+as discussed in Chapter 2.
+
